@@ -14,7 +14,7 @@ class AudioEngine {
   async loadDemoSample() {
     try {
       const response = await fetch('/demo-kick.wav');
-      const arrayBuffer = await response.fetch();
+      const arrayBuffer = await response.arrayBuffer();
       const audioBuffer = await this.context.decodeAudioData(arrayBuffer);
       this.samples.set(1, audioBuffer);
     } catch (error) {
