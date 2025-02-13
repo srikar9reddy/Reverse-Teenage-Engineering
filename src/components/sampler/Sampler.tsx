@@ -6,10 +6,9 @@ import { Knob } from './Knob';
 import { 
   Play, 
   Square, 
-  Record, 
+  CircleDot, 
   Music2,
   Timer,
-  Wand2,
   Save,
   Volume2
 } from 'lucide-react';
@@ -87,7 +86,7 @@ export const Sampler = () => {
               <Save className="w-4 h-4" />
             </Button>
             <Button variant="orange">
-              <Record className="w-4 h-4" />
+              <CircleDot className="w-4 h-4" />
             </Button>
             <Button 
               variant="gray"
