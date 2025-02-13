@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from './Button';
 import { Display } from './Display';
 import { Knob } from './Knob';
@@ -12,14 +12,33 @@ import {
   Save,
   Volume2
 } from 'lucide-react';
+import { audioEngine } from '@/lib/audio';
 
 export const Sampler = () => {
   const [bpm, setBpm] = useState(120);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(75);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    // Load demo sample when component mounts
+    audioEngine.loadDemoSample().then(() => {
+      setIsLoaded(true);
+    });
+  }, []);
+
+  useEffect(() => {
+    audioEngine.setVolume(volume);
+  }, [volume]);
 
   const handlePlayClick = () => {
     setIsPlaying(!isPlaying);
+  };
+
+  const handlePadClick = (padNumber: number) => {
+    if (isLoaded) {
+      audioEngine.playSample(padNumber);
+    }
   };
 
   return (
@@ -74,6 +93,7 @@ export const Sampler = () => {
                 variant={i % 3 === 0 ? "light" : "dark"}
                 led={true}
                 active={i === 1}
+                onClick={() => handlePadClick(i + 1)}
               >
                 {i + 1}
               </Button>
